@@ -20,12 +20,12 @@ public class DrinkShopService {
             Repository<Integer, Product> productRepo,
             Repository<Integer, Order> orderRepo,
             Repository<Integer, Reteta> retetaRepo,
-            Repository<Integer, Stoc> stocService
+            Repository<Integer, Stoc> stocRepo
     ) {
         this.productService = new ProductService(productRepo);
         this.orderService = new OrderService(orderRepo, productRepo);
         this.retetaService = new RetetaService(retetaRepo);
-        this.stocService = new StocService(stocService);
+        this.stocService = new StocService(stocRepo);
         this.report = new DailyReportService(orderRepo);
     }
 
@@ -34,8 +34,8 @@ public class DrinkShopService {
         productService.addProduct(p);
     }
 
-    public void updateProduct(int id, String name, double price, CategorieBautura categorie, TipBautura tip) {
-        productService.updateProduct(id, name, price, categorie, tip);
+    public void updateProduct(Product p) {
+        productService.updateProduct(p);
     }
 
     public void deleteProduct(int id) {
@@ -103,5 +103,9 @@ public class DrinkShopService {
 
     public void deleteReteta(int id) {
         retetaService.deleteReteta(id);
+    }
+
+    public boolean productExistsForReteta(int id) {
+        return productService.productExistsForReteta(id);
     }
 }

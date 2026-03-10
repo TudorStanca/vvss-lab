@@ -2,6 +2,7 @@ package drinkshop.repository.file;
 
 import drinkshop.domain.IngredientReteta;
 import drinkshop.domain.Reteta;
+import drinkshop.repository.RepositoryException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +26,23 @@ public class FileRetetaRepository
 
         String[] elems = line.split(",");
 
+        if(elems.length < 2) {
+            throw new RepositoryException("Invalid line format: " + line);
+        }
+
         int productId = Integer.parseInt(elems[0]);
         List<IngredientReteta> ingrediente = new ArrayList<>();
-        int index=1;
+        int index = 1;
         while (index<elems.length) {
             String ingredientTotal= elems[index++];
             String[] ingredientSeparat = ingredientTotal.split(":");
+
+            if(ingredientSeparat.length != 2) {
+                throw new RepositoryException("Invalid ingredient format: " + ingredientTotal);
+            }
+
             String ingredientName = ingredientSeparat[0];
-            Double ingredientQuantity = Double.parseDouble(ingredientSeparat[1]);
+            double ingredientQuantity = Double.parseDouble(ingredientSeparat[1]);
             ingrediente.add(new IngredientReteta(ingredientName, ingredientQuantity));
         }
         return new Reteta(productId, ingrediente);

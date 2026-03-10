@@ -3,6 +3,9 @@ package drinkshop.repository.file;
 import drinkshop.domain.Product;
 import drinkshop.domain.CategorieBautura;
 import drinkshop.domain.TipBautura;
+import drinkshop.repository.RepositoryException;
+
+import java.util.List;
 
 public class FileProductRepository
         extends FileAbstractRepository<Integer, Product> {
@@ -21,6 +24,10 @@ public class FileProductRepository
     protected Product extractEntity(String line) {
 
         String[] elems = line.split(",");
+
+        if (elems.length != 5) {
+            throw new RepositoryException("Invalid line format: " + line);
+        }
 
         int id = Integer.parseInt(elems[0]);
         String name = elems[1];

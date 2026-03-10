@@ -1,7 +1,9 @@
 package drinkshop.ui;
 
 import drinkshop.domain.*;
+import drinkshop.repository.RepositoryException;
 import drinkshop.service.DrinkShopService;
+import drinkshop.service.validator.ValidationException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -114,17 +116,11 @@ public class DrinkShopController {
         Reteta r=retetaTable.getSelectionModel().getSelectedItem();
 
         if (r == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText("Selectati o reteta pentru care adugati un produs");
-            alert.showAndWait();
+            showInfo("Selectati o reteta pentru care adugati un produs", "Error");
             return;
         }else
-        if (service.getAllProducts().stream().filter(p->p.getId()==r.getId()).toList().size()>0) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Error");
-            alert.setHeaderText("Exista un produs cu reteta adaugata.");
-            alert.showAndWait();
+        if (service.productExistsForReteta(r.getId())) {
+            showWarning("Exista deja un produs cu reteta adaugata.", "Error");
             return;
         }
         Product p = new Product(r.getId(),
@@ -132,7 +128,11 @@ public class DrinkShopController {
                 Double.parseDouble(txtProdPrice.getText()),
                 comboProdCategorie.getValue(),
                 comboProdTip.getValue());
-        service.addProduct(p);
+        try{
+            service.addProduct(p);
+        } catch (ValidationException | RepositoryException e) {
+            showError(e.getMessage(), "Eroare la adaugare produs");
+        }
         initData();
     }
 
@@ -140,9 +140,10 @@ public class DrinkShopController {
     private void onUpdateProduct() {
         Product selected = productTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
-        service.updateProduct(selected.getId(), txtProdName.getText(),
+        Product updated = new Product(selected.getId(), txtProdName.getText(),
                 Double.parseDouble(txtProdPrice.getText()),
                 comboProdCategorie.getValue(), comboProdTip.getValue());
+        service.updateProduct(updated);
         initData();
     }
 
@@ -199,11 +200,11 @@ public class DrinkShopController {
         Integer qty = comboQty.getValue();
 
         if (selected == null) {
-            showError("Selectează un produs din listă.");
+            showError("Selectează un produs din listă.", "Produs nevalid");
             return;
         }
         if (qty == null) {
-            showError("Selectează cantitatea.");
+            showError("Selectează cantitatea.", "Cantitate nevalidă");
             return;
         }
 
@@ -252,8 +253,21 @@ public class DrinkShopController {
         lblTotalRevenue.setText("Daily Revenue: " + service.getDailyRevenue());
     }
 
-    private void showError(String msg) {
+    private void showError(String msg, String title) {
         Alert alert = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);
+        alert.setTitle(title);
+        alert.showAndWait();
+    }
+
+    private void showInfo(String msg, String title) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, msg, ButtonType.OK);
+        alert.setTitle(title);
+        alert.showAndWait();
+    }
+
+    private void showWarning(String msg, String title) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
+        alert.setTitle(title);
         alert.showAndWait();
     }
 }

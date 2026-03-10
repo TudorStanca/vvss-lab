@@ -18,7 +18,10 @@ public class CsvExporter {
             double sum=0.0;
             for (Order o : orders){
                 for (OrderItem i : o.getItems()) {
-                    Product p = products.stream().filter((p1)->i.getProduct().getId()==p1.getId()).toList().get(0);
+                    Product p = i.getProduct();
+                    if (p == null) {
+                        throw new IllegalStateException("OrderItem has null product in order " + o.getId());
+                    }
                     w.write(o.getId() + "," + p.getNume() + "," + i.getQuantity() + "," + i.getTotal() + "\n");
                 }
                 w.write("total order: "+o.getTotal()+" RON\n");
