@@ -1,8 +1,8 @@
 package drinkshop.service;
 
-import drinkshop.domain.*;
+import drinkshop.domain.Product;
 import drinkshop.repository.Repository;
-import drinkshop.service.validator.ProductValidator;
+import drinkshop.service.validator.Validator;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,10 +10,11 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final Repository<Integer, Product> productRepo;
-    private final ProductValidator validator = new ProductValidator();
+    private final Validator<Product> validator;
 
-    public ProductService(Repository<Integer, Product> productRepo) {
+    public ProductService(Repository<Integer, Product> productRepo, Validator<Product> validator) {
         this.productRepo = productRepo;
+        this.validator = validator;
     }
 
     public void addProduct(Product p) {
@@ -30,13 +31,6 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-//        Iterable<Product> it=productRepo.findAll();
-//        ArrayList<Product> products=new ArrayList<>();
-//        it.forEach(products::add);
-//        return products;
-
-//        return StreamSupport.stream(productRepo.findAll().spliterator(), false)
-//                    .collect(Collectors.toList());
         return productRepo.findAll();
     }
 
@@ -44,19 +38,17 @@ public class ProductService {
         return productRepo.findOne(id);
     }
 
-    public List<Product> filterByCategorie(CategorieBautura categorie) {
-        if (categorie == CategorieBautura.ALL) return getAllProducts();
-
+    public List<Product> filterByCategorie(String categorie) {
+        if ("ALL".equals(categorie)) return getAllProducts();
         return getAllProducts().stream()
-                .filter(p -> p.getCategorie() == categorie)
+                .filter(p -> categorie.equals(p.getCategorie()))
                 .collect(Collectors.toList());
     }
 
-    public List<Product> filterByTip(TipBautura tip) {
-        if (tip == TipBautura.ALL) return getAllProducts();
-
+    public List<Product> filterByTip(String tip) {
+        if ("ALL".equals(tip)) return getAllProducts();
         return getAllProducts().stream()
-                .filter(p -> p.getTip() == tip)
+                .filter(p -> tip.equals(p.getTip()))
                 .collect(Collectors.toList());
     }
 
