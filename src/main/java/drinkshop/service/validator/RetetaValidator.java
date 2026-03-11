@@ -24,9 +24,8 @@ public class RetetaValidator implements Validator<Reteta> {
         else {
             ingrediente.stream()
                 .filter(entry -> entry.getCantitate() <= 0)
-                .forEach(entry -> {
-                    errors.append("[").append(entry.getDenumire()).append("]").append("cantitate negativa sau zero").append("\n");
-                });
+                .forEach(entry ->
+                        errors.append("[").append(entry.getDenumire()).append("]").append("cantitate negativa sau zero").append("\n"));
         }
 
         if (!errors.isEmpty())

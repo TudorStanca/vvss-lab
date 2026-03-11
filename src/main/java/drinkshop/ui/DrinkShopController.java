@@ -387,16 +387,4 @@ public class DrinkShopController {
         alert.setTitle(title);
         alert.showAndWait();
     }
-
-    private void showInfo(String msg, String title) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, msg, ButtonType.OK);
-        alert.setTitle(title);
-        alert.showAndWait();
-    }
-
-    private void showWarning(String msg, String title) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
-        alert.setTitle(title);
-        alert.showAndWait();
-    }
 }

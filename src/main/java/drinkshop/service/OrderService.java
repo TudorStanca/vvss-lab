@@ -11,14 +11,11 @@ import java.util.List;
 public class OrderService {
 
     private final Repository<Integer, Order> orderRepo;
-    private final Repository<Integer, Product> productRepo;
     private final Validator<Order> validator;
 
     public OrderService(Repository<Integer, Order> orderRepo,
-                        Repository<Integer, Product> productRepo,
                         Validator<Order> validator) {
         this.orderRepo = orderRepo;
-        this.productRepo = productRepo;
         this.validator = validator;
     }
 
