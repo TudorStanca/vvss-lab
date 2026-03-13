@@ -26,7 +26,7 @@ public class DrinkShopApp extends Application {
             Repository<Integer, TipBautura> tipRepo = new FileTipBauturaRepository("data/tipuri.txt");
             Repository<Integer, CategorieBautura> categorieRepo = new FileCategorieBauturaRepository("data/categorii.txt");
 
-            // ---------- Initializare Service-uri (cu validatori injectati) ----------
+            // ---------- Initializare Service-uri ----------
             ProductService productService = new ProductService(productRepo, new ProductValidator());
             RetetaService retetaService = new RetetaService(retetaRepo, new RetetaValidator());
             OrderService orderService = new OrderService(orderRepo, new OrderValidator());
@@ -35,7 +35,7 @@ public class DrinkShopApp extends Application {
             TipBauturaService tipBauturaService = new TipBauturaService(tipRepo);
             CategorieBauturaService categorieBauturaService = new CategorieBauturaService(categorieRepo);
 
-            // ---------- Initializare DrinkShopService cu service-uri injectate ----------
+            // ---------- Initializare DrinkShopService ----------
             DrinkShopService service = new DrinkShopService(
                     productService, orderService, retetaService,
                     stocService, dailyReport, tipBauturaService, categorieBauturaService

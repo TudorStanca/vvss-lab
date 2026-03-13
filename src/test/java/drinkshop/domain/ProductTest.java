@@ -9,10 +9,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductTest {
 
     Product product;
+    private static final String juice = "JUICE";
+    private static final String smoothie = "SMOOTHIE";
+
+    private static final String waterBased = "WATER_BASED";
+    private static final String basic = "BASIC";
 
     @BeforeEach
     void setUp() {
-        product =new Product(100, "Limonada", 10.0, CategorieBautura.JUICE, TipBautura.WATER_BASED);
+        product =new Product(100, "Limonada", 10.0, juice, waterBased);
     }
 
     @AfterEach
@@ -37,24 +42,24 @@ class ProductTest {
 
     @Test
     void getCategorie() {
-        assert CategorieBautura.JUICE.equals(product.getCategorie());
+        assert juice.equals(product.getCategorie());
     }
 
     @Test
     void setCategorie() {
-        product.setCategorie(CategorieBautura.SMOOTHIE);
-        assert CategorieBautura.SMOOTHIE.equals(product.getCategorie());
+        product.setCategorie(smoothie);
+        assert smoothie.equals(product.getCategorie());
     }
 
     @Test
     void getTip() {
-        assert TipBautura.WATER_BASED.equals(product.getTip());
+        assert waterBased.equals(product.getTip());
     }
 
     @Test
     void setTip() {
-        product.setTip(TipBautura.BASIC);
-        assert TipBautura.BASIC.equals(product.getTip());
+        product.setTip(basic);
+        assert basic.equals(product.getTip());
     }
 
     @Test
