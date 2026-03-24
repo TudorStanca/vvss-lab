@@ -1,8 +1,7 @@
 package drinkshop.repository.file;
 
 import drinkshop.domain.Product;
-import drinkshop.domain.CategorieBautura;
-import drinkshop.domain.TipBautura;
+import drinkshop.repository.RepositoryException;
 
 public class FileProductRepository
         extends FileAbstractRepository<Integer, Product> {
@@ -22,11 +21,15 @@ public class FileProductRepository
 
         String[] elems = line.split(",");
 
+        if (elems.length != 5) {
+            throw new RepositoryException("Invalid line format: " + line);
+        }
+
         int id = Integer.parseInt(elems[0]);
         String name = elems[1];
         double price = Double.parseDouble(elems[2]);
-        CategorieBautura categorie = CategorieBautura.valueOf(elems[3]);
-        TipBautura tip = TipBautura.valueOf(elems[4]);
+        String categorie = elems[3];
+        String tip = elems[4];
 
         return new Product(id, name, price, categorie, tip);
     }

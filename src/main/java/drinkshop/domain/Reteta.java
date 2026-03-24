@@ -4,38 +4,26 @@ import java.util.List;
 
 public class Reteta {
 
-    private int id;
+    private Product product;
     private List<IngredientReteta> ingrediente;
 
-    public Reteta(int id, List<IngredientReteta> ingrediente) {
-        this.id = id;
-        this.ingrediente = ingrediente;
-
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-
-    public List<IngredientReteta> getIngrediente() {
-        return ingrediente;
-    }
-
-    public void setIngrediente(List<IngredientReteta> ingrediente) {
+    public Reteta(Product product, List<IngredientReteta> ingrediente) {
+        this.product = product;
         this.ingrediente = ingrediente;
     }
+
+    public int getId() { return product.getId(); }
+    public Product getProduct() { return product; }
+    public void setProduct(Product product) { this.product = product; }
+
+    public List<IngredientReteta> getIngrediente() { return ingrediente; }
+    public void setIngrediente(List<IngredientReteta> ingrediente) { this.ingrediente = ingrediente; }
 
     @Override
     public String toString() {
         return "Reteta{" +
-                "productId=" + id +
+                "product=" + product.getNume() +
                 ", ingrediente=" + ingrediente +
                 '}';
     }
 }
-

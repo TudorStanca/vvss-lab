@@ -4,21 +4,23 @@ import drinkshop.domain.Order;
 import drinkshop.domain.OrderItem;
 import drinkshop.domain.Product;
 import drinkshop.repository.Repository;
+import drinkshop.service.validator.Validator;
 
 import java.util.List;
 
 public class OrderService {
 
     private final Repository<Integer, Order> orderRepo;
-    private final Repository<Integer, Product> productRepo;
+    private final Validator<Order> validator;
 
-    public OrderService(Repository<Integer, Order> orderRepo, Repository<Integer, Product> productRepo) {
+    public OrderService(Repository<Integer, Order> orderRepo,
+                        Validator<Order> validator) {
         this.orderRepo = orderRepo;
-        this.productRepo = productRepo;
-
+        this.validator = validator;
     }
 
     public void addOrder(Order o) {
+        validator.validate(o);
         orderRepo.save(o);
     }
 
@@ -31,8 +33,6 @@ public class OrderService {
     }
 
     public List<Order> getAllOrders() {
-//        return StreamSupport.stream(orderRepo.findAll().spliterator(), false)
-//                .collect(Collectors.toList());
         return orderRepo.findAll();
     }
 
@@ -42,7 +42,7 @@ public class OrderService {
 
     public double computeTotal(Order o) {
         return o.getItems().stream()
-                .mapToDouble(i -> productRepo.findOne(i.getProduct().getId()).getPret() * i.getQuantity())
+                .mapToDouble(OrderItem::getTotal)
                 .sum();
     }
 

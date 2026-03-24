@@ -1,10 +1,9 @@
 OrderId,Product,Quantity,Price
-1,Latte,3,42.0
-1,Taro Bubble Tea,1,18.5
-total order: 60.5 RON
+1,Apa Minerala,1,3.5
+total order: 3.5 RON
 -------------------------------
-2,Apa plata cu lamaie,1,100.0
-total order: 100.0 RON
+2,Cappuccino,1,12.0
+total order: 12.0 RON
 -------------------------------
 3,Limonada,3,30.0
 3,Oat Milk Latte,6,90.0
@@ -17,4 +16,4 @@ total order: 10.0 RON
 5,Apa plata cu lamaie,4,400.0
 total order: 430.0 RON
 -------------------------------
-TOTAL OF 21.02.2026 is: 720.5 RON
+TOTAL OF 11.03.2026 is: 575.5 RON

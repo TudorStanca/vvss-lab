@@ -1,16 +1,20 @@
 package drinkshop.domain;
 
-public enum CategorieBautura {
-    CLASSIC_COFFEE,
-    MILK_COFFEE,
-    SPECIAL_COFFEE,
-    ICED_COFFEE,
 
-    TEA,
-    BUBBLE_TEA,
+public class CategorieBautura {
 
-    JUICE,
-    SMOOTHIE,
+    private int id;
+    private String name;
 
-    ALL
+    public CategorieBautura(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    @Override
+    public String toString() { return name; }
 }

@@ -24,17 +24,38 @@ public abstract class AbstractRepository<ID, E>
 
     @Override
     public E save(E entity) {
-        entities.put(getId(entity), entity);
+        try{
+            entities.put(getId(entity), entity);
+        } catch (RuntimeException e)
+        {
+            throw new RepositoryException("Failed to save entity: " + entity);
+        }
         return entity;
     }
 
     @Override
     public E delete(ID id) {
+        try{
+            if (!entities.containsKey(id)) {
+                throw new RepositoryException("Entity with id " + id + " does not exist.");
+            }
+        } catch (RuntimeException e)
+        {
+            throw new RepositoryException("Failed to delete entity with id: " + id);
+        }
         return entities.remove(id);
     }
 
     @Override
     public E update(E entity) {
+        try{
+            if (!entities.containsKey(getId(entity))) {
+                throw new RepositoryException("Entity with id " + getId(entity) + " does not exist.");
+            }
+        } catch (RuntimeException e)
+        {
+            throw new RepositoryException("Failed to update entity: " + entity);
+        }
         entities.put(getId(entity), entity);
         return entity;
     }

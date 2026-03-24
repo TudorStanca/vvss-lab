@@ -4,7 +4,6 @@ import drinkshop.domain.*;
 import drinkshop.export.CsvExporter;
 import drinkshop.receipt.ReceiptGenerator;
 import drinkshop.reports.DailyReportService;
-import drinkshop.repository.Repository;
 
 import java.util.List;
 
@@ -15,18 +14,25 @@ public class DrinkShopService {
     private final RetetaService retetaService;
     private final StocService stocService;
     private final DailyReportService report;
+    private final TipBauturaService tipBauturaService;
+    private final CategorieBauturaService categorieBauturaService;
 
     public DrinkShopService(
-            Repository<Integer, Product> productRepo,
-            Repository<Integer, Order> orderRepo,
-            Repository<Integer, Reteta> retetaRepo,
-            Repository<Integer, Stoc> stocService
+            ProductService productService,
+            OrderService orderService,
+            RetetaService retetaService,
+            StocService stocService,
+            DailyReportService report,
+            TipBauturaService tipBauturaService,
+            CategorieBauturaService categorieBauturaService
     ) {
-        this.productService = new ProductService(productRepo);
-        this.orderService = new OrderService(orderRepo, productRepo);
-        this.retetaService = new RetetaService(retetaRepo);
-        this.stocService = new StocService(stocService);
-        this.report = new DailyReportService(orderRepo);
+        this.productService = productService;
+        this.orderService = orderService;
+        this.retetaService = retetaService;
+        this.stocService = stocService;
+        this.report = report;
+        this.tipBauturaService = tipBauturaService;
+        this.categorieBauturaService = categorieBauturaService;
     }
 
     // ---------- PRODUCT ----------
@@ -34,8 +40,8 @@ public class DrinkShopService {
         productService.addProduct(p);
     }
 
-    public void updateProduct(int id, String name, double price, CategorieBautura categorie, TipBautura tip) {
-        productService.updateProduct(id, name, price, categorie, tip);
+    public void updateProduct(Product p) {
+        productService.updateProduct(p);
     }
 
     public void deleteProduct(int id) {
@@ -46,11 +52,11 @@ public class DrinkShopService {
         return productService.getAllProducts();
     }
 
-    public List<Product> filtreazaDupaCategorie(CategorieBautura categorie) {
+    public List<Product> filtreazaDupaCategorie(String categorie) {
         return productService.filterByCategorie(categorie);
     }
 
-    public List<Product> filtreazaDupaTip(TipBautura tip) {
+    public List<Product> filtreazaDupaTip(String tip) {
         return productService.filterByTip(tip);
     }
 
@@ -76,7 +82,7 @@ public class DrinkShopService {
     }
 
     public void exportCsv(String path) {
-        CsvExporter.exportOrders(productService.getAllProducts(), orderService.getAllOrders(), path);
+        CsvExporter.exportOrders(orderService.getAllOrders(), path);
     }
 
     // ---------- STOCK + RECIPE ----------
@@ -103,5 +109,43 @@ public class DrinkShopService {
 
     public void deleteReteta(int id) {
         retetaService.deleteReteta(id);
+    }
+
+    public boolean productExistsForReteta(int id) {
+        return productService.productExistsForReteta(id);
+    }
+
+    // ---------- TIP BAUTURA ----------
+    public List<TipBautura> getAllTipuri() {
+        return tipBauturaService.getAll();
+    }
+
+    public void addTip(TipBautura t) {
+        tipBauturaService.add(t);
+    }
+
+    public void updateTip(TipBautura t) {
+        tipBauturaService.update(t);
+    }
+
+    public void deleteTip(int id) {
+        tipBauturaService.delete(id);
+    }
+
+    // ---------- CATEGORIE BAUTURA ----------
+    public List<CategorieBautura> getAllCategorii() {
+        return categorieBauturaService.getAll();
+    }
+
+    public void addCategorie(CategorieBautura c) {
+        categorieBauturaService.add(c);
+    }
+
+    public void updateCategorie(CategorieBautura c) {
+        categorieBauturaService.update(c);
+    }
+
+    public void deleteCategorie(int id) {
+        categorieBauturaService.delete(id);
     }
 }

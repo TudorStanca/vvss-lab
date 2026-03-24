@@ -10,23 +10,25 @@ public class RetetaValidator implements Validator<Reteta> {
 
     @Override
     public void validate(Reteta reteta) {
+        if (reteta == null)
+            throw new ValidationException("Reteta nu poate fi null!");
 
-        AtomicReference<String> errors = new AtomicReference<>("");
+        StringBuilder errors = new StringBuilder();
 
         if (reteta.getId() <= 0)
-            errors.accumulateAndGet("Product ID invalid!\n", String::concat);
+            errors.append("Product ID invalid!\n");
 
         List<IngredientReteta> ingrediente = reteta.getIngrediente();
         if (ingrediente == null || ingrediente.isEmpty())
-            errors.accumulateAndGet("Ingrediente empty!\n", String::concat);
-
-        ingrediente.stream()
+            errors.append("Ingrediente empty!\n");
+        else {
+            ingrediente.stream()
                 .filter(entry -> entry.getCantitate() <= 0)
-                .forEach(entry -> {
-                    errors.accumulateAndGet("[" + entry.getDenumire() + "]"+ "cantitate negativa sau zero", String::concat);
-                });
+                .forEach(entry ->
+                        errors.append("[").append(entry.getDenumire()).append("]").append("cantitate negativa sau zero").append("\n"));
+        }
 
-        if (!errors.get().isEmpty())
-            throw new ValidationException(errors.get());
+        if (!errors.isEmpty())
+            throw new ValidationException(errors.toString());
     }
 }
