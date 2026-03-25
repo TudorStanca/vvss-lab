@@ -23,6 +23,7 @@ public class ProductService {
     }
 
     public void updateProduct(Product updated) {
+        validator.validate(updated);
         productRepo.update(updated);
     }
 
