@@ -63,10 +63,10 @@ class ProductServiceTestBVA {
 
     @Test
     @Order(2)
-    @DisplayName("BVA valid: price at minimum positive boundary (0.01)")
+    @DisplayName("BVA valid: price at minimum positive boundary (1)")
     void updateProduct_bvaValid_priceMinPositive_updatesProduct() {
         // Arrange
-        Product updated = new Product(PRODUCT_ID, "Limonada", 0.01, "CLASSIC_COFFE", "SIMPLE");
+        Product updated = new Product(PRODUCT_ID, "Limonada", 1, "CLASSIC_COFFE", "SIMPLE");
 
         // Act
         assertDoesNotThrow(() -> productService.updateProduct(updated));
@@ -74,7 +74,7 @@ class ProductServiceTestBVA {
 
         // Assert
         assertEquals("Limonada", result.getNume());
-        assertEquals(0.01, result.getPret());
+        assertEquals(1, result.getPret());
     }
 
     @Test
