@@ -10,13 +10,19 @@ public class ProductValidator implements Validator<Product> {
         String errors = "";
 
         if (product.getId() <= 0)
-            errors += "ID invalid!\n";
+            errors += "Invalid id!\n";
 
         if (product.getNume() == null || product.getNume().isBlank())
-            errors += "Numele nu poate fi gol!\n";
+            errors += "Invalid name!\n";
 
         if (product.getPret() <= 0)
-            errors += "Pret invalid!\n";
+            errors += "Invalid price!\n";
+
+        if (product.getCategorie() == null || product.getCategorie().isBlank())
+            errors += "Invalid category!\n";
+
+        if (product.getTip() == null || product.getTip().isBlank())
+            errors += "Invalid type!\n";
 
         if (!errors.isEmpty())
             throw new ValidationException(errors);
