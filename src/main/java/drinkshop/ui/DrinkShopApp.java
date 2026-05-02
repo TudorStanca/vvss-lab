@@ -29,7 +29,7 @@ public class DrinkShopApp extends Application {
             // ---------- Initializare Service-uri ----------
             ProductService productService = new ProductService(productRepo, new ProductValidator());
             RetetaService retetaService = new RetetaService(retetaRepo, new RetetaValidator());
-            OrderService orderService = new OrderService(orderRepo, new OrderValidator());
+            OrderService orderService = new OrderService(orderRepo, productRepo,new OrderValidator());
             StocService stocService = new StocService(stocRepo, new StocValidator());
             DailyReportService dailyReport = new DailyReportService(orderRepo);
             TipBauturaService tipBauturaService = new TipBauturaService(tipRepo);

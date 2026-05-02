@@ -11,10 +11,13 @@ import java.util.List;
 public class OrderService {
 
     private final Repository<Integer, Order> orderRepo;
+    private final Repository<Integer, Product> productRepo;
     private final Validator<Order> validator;
 
     public OrderService(Repository<Integer, Order> orderRepo,
+                        Repository<Integer, Product> productRepo,
                         Validator<Order> validator) {
+        this.productRepo = productRepo;
         this.orderRepo = orderRepo;
         this.validator = validator;
     }
@@ -41,9 +44,26 @@ public class OrderService {
     }
 
     public double computeTotal(Order o) {
-        return o.getItems().stream()
-                .mapToDouble(OrderItem::getTotal)
-                .sum();
+        if (o == null)
+            return 0;
+
+        double sum = 0;
+        for (var item : o.getItems()) {
+            var p = productRepo.findOne(item.getProduct().getId());
+
+            if(p == null)
+                throw new RuntimeException("Order has unknown items");
+
+            if (item.getQuantity() <= 0)
+                throw new RuntimeException("Product appears in order negative times");
+
+            if (p.getPret() <= 0)
+                throw new RuntimeException("Product has negative price");
+
+            sum += p.getPret() * item.getQuantity();
+        }
+
+        return sum;
     }
 
     public void addItem(Order o, OrderItem item) {
