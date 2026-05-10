@@ -64,18 +64,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    30%
+    100%
   </span>
   <span class="absValue">
-    (3/10)
+    (10/10)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    33.3%
+    63%
   </span>
   <span class="absValue">
-    (9/27)
+    (17/27)
   </span>
 </td>
 </tr>
@@ -137,19 +137,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            return 0;</b>
 &nbsp;
 <b class="fc">&nbsp;        double sum = 0;</b>
-<b class="pc">&nbsp;        for (var item : o.getItems()) {</b>
-<b class="nc">&nbsp;            var p = productRepo.findOne(item.getProduct().getId());</b>
+<b class="fc">&nbsp;        for (var item : o.getItems()) {</b>
+<b class="fc">&nbsp;            var p = productRepo.findOne(item.getProduct().getId());</b>
 &nbsp;
-<b class="nc">&nbsp;            if(p == null)</b>
-<b class="nc">&nbsp;                throw new RuntimeException(&quot;Order has unknown items&quot;);</b>
+<b class="fc">&nbsp;            if(p == null)</b>
+<b class="fc">&nbsp;                throw new RuntimeException(&quot;Order has unknown items&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;            if (item.getQuantity() &lt;= 0)</b>
-<b class="nc">&nbsp;                throw new RuntimeException(&quot;Product appears in order negative times&quot;);</b>
+<b class="fc">&nbsp;            if (item.getQuantity() &lt;= 0)</b>
+<b class="fc">&nbsp;                throw new RuntimeException(&quot;Product appears in order negative times&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;            if (p.getPret() &lt;= 0)</b>
-<b class="nc">&nbsp;                throw new RuntimeException(&quot;Product has negative price&quot;);</b>
+<b class="fc">&nbsp;            if (p.getPret() &lt;= 0)</b>
+<b class="fc">&nbsp;                throw new RuntimeException(&quot;Product has negative price&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;            sum += p.getPret() * item.getQuantity();</b>
+<b class="fc">&nbsp;            sum += p.getPret() * item.getQuantity();</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        return sum;</b>
@@ -188,7 +188,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-02 14:32</div>
+    <div style="float:right;">generated on 2026-05-10 19:40</div>
 </div>
 </body>
 </html>
