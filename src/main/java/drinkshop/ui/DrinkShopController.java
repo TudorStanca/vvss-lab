@@ -64,12 +64,12 @@ public class DrinkShopController {
     @FXML private TableColumn<CategorieBautura, String> colCategorieName;
     @FXML private TextField txtCategorieName;
 
-    private ObservableList<Product> productList = FXCollections.observableArrayList();
-    private ObservableList<Reteta> retetaList = FXCollections.observableArrayList();
-    private ObservableList<IngredientReteta> newRetetaList = FXCollections.observableArrayList();
-    private ObservableList<OrderItem> currentOrderItems = FXCollections.observableArrayList();
-    private ObservableList<TipBautura> tipList = FXCollections.observableArrayList();
-    private ObservableList<CategorieBautura> categorieList = FXCollections.observableArrayList();
+    private final ObservableList<Product> productList = FXCollections.observableArrayList();
+    private final ObservableList<Reteta> retetaList = FXCollections.observableArrayList();
+    private final ObservableList<IngredientReteta> newRetetaList = FXCollections.observableArrayList();
+    private final ObservableList<OrderItem> currentOrderItems = FXCollections.observableArrayList();
+    private final ObservableList<TipBautura> tipList = FXCollections.observableArrayList();
+    private final ObservableList<CategorieBautura> categorieList = FXCollections.observableArrayList();
 
     private Order currentOrder = new Order(1);
 
