@@ -12,7 +12,7 @@
 <p style="text-align: center;"><img alt="TestLink logo" title="configure using $tlCfg->document_generator->company_logo"  width= height= src="https://www.scs.ubbcluj.ro/testlink/gui/themes/default/images/tl-logo-transparent-25.png" /></p></div>
 <div class="doc_title"><p>Test Specification</p></div>
 <div class="doc_title" style="text-align:left;margin: auto;"><p>Test Project: Proiect236<br/>Test Suite: Proiect236 - svir3633_IntT</p></div>
-<div class="summary"><p id="printedby">Printed by TestLink on 11/05/2026</p></div>
+<div class="summary"><p id="printedby">Printed by TestLink on 12/05/2026</p></div>
 <div class="pagefooter" id="copyright">2012 &copy; TestLink Community</div>
 <h1 class="general" style="page-break-before: always">Table Of Contents</h1><div class="toc"><p style="padding-left: 20px;"><b><a href="#toc_1">1.svir3633_IntT</a></b></p>
 <p style="padding-left: 45px;"><a href="#toc_tc30884">P236-70: IntT_Step1_ProductService_UnitTest</a></p><p style="padding-left: 45px;"><a href="#toc_tc30886">P236-71: IntT_Step2_ProductService_WithValidator</a></p><p style="padding-left: 45px;"><a href="#toc_tc30888">P236-72: IntT_Step3_ProductService_WithRepository</a></p></div><h1 class="doclevel" >Scope</h1>
