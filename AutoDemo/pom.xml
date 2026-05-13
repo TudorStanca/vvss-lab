@@ -83,6 +83,9 @@
                         <include>**/*Story.java</include>
                     </includes>
                     <argLine>-Xmx512m</argLine>
+                    <systemPropertyVariables>
+                        <webdriver.gecko.driver>${project.basedir}/src/test/resources/geckodriver.exe</webdriver.gecko.driver>
+                    </systemPropertyVariables>
                 </configuration>
                 <executions>
                     <execution>
