@@ -52,8 +52,12 @@ public class CarturestiHomePage extends PageObject {
     }
 
     public boolean isUserLoggedIn() {
-        // Logout link is present in the DOM iff the user is authenticated
-        return !getDriver().findElements(LOGOUT_LINK).isEmpty();
+        try {
+            salutButton.withTimeoutOf(15, TimeUnit.SECONDS).waitUntilVisible();
+            return true;
+        } catch (Exception e) {
+            return !getDriver().findElements(LOGOUT_LINK).isEmpty();
+        }
     }
 
     public void clickSalutDropdown() {
