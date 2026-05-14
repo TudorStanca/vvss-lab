@@ -28,7 +28,7 @@ public class RetetaValidator implements Validator<Reteta> {
                         errors.append("[").append(entry.getDenumire()).append("]").append("cantitate negativa sau zero").append("\n"));
         }
 
-        if (!errors.isEmpty())
+        if (errors.length() > 0)
             throw new ValidationException(errors.toString());
     }
 }
